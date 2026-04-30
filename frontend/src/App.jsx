@@ -1,0 +1,72 @@
+import React, { useState } from 'react';
+import { Link, Navigate, Route, Routes, useNavigate } from 'react-router-dom';
+import Login from './pages/Login.jsx';
+import Register from './pages/Register.jsx';
+import Tasks from './pages/Tasks.jsx';
+import Profile from './pages/Profile.jsx';
+
+function ProtectedRoute({ user, children }) {
+  if (!user) return <Navigate to="/login" replace />;
+  return children;
+}
+
+export default function App() {
+  const [user, setUser] = useState(() => JSON.parse(localStorage.getItem('user') || 'null'));
+  const navigate = useNavigate();
+
+  function handleLogin(loggedUser) {
+    localStorage.setItem('user', JSON.stringify(loggedUser));
+    setUser(loggedUser);
+    navigate('/tasks');
+  }
+
+  function handleLogout() {
+    localStorage.removeItem('user');
+    setUser(null);
+    navigate('/login');
+  }
+
+  function handleProfileUpdate(updatedUser) {
+    localStorage.setItem('user', JSON.stringify(updatedUser));
+    setUser(updatedUser);
+  }
+
+  return (
+    <div className="app">
+      <header className="topbar">
+        <Link className="logo" to={user ? '/tasks' : '/login'}>Task Manager App</Link>
+        {user && (
+          <nav className="nav">
+            <Link to="/tasks">Úkoly</Link>
+            <Link to="/profile">Profil</Link>
+            <button type="button" onClick={handleLogout}>Odhlásit</button>
+          </nav>
+        )}
+      </header>
+
+      <main className="container">
+        <Routes>
+          <Route path="/" element={<Navigate to={user ? '/tasks' : '/login'} replace />} />
+          <Route path="/login" element={<Login onLogin={handleLogin} />} />
+          <Route path="/register" element={<Register onRegister={handleLogin} />} />
+          <Route
+            path="/tasks"
+            element={
+              <ProtectedRoute user={user}>
+                <Tasks />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute user={user}>
+                <Profile user={user} onProfileUpdate={handleProfileUpdate} />
+              </ProtectedRoute>
+            }
+          />
+        </Routes>
+      </main>
+    </div>
+  );
+}
