@@ -1,17 +1,19 @@
 import React, { useState } from 'react';
-import { Link, Navigate, Route, Routes, useNavigate } from 'react-router-dom';
+import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
+
 import Login from './pages/Login.jsx';
 import Register from './pages/Register.jsx';
 import Tasks from './pages/Tasks.jsx';
 import Profile from './pages/Profile.jsx';
 
-function ProtectedRoute({ user, children }) {
-  if (!user) return <Navigate to="/login" replace />;
-  return children;
-}
+import Navbar from '/components/Navbar.jsx';
+import ProtectedRoute from '/components/ProtectedRoute.jsx';
 
 export default function App() {
-  const [user, setUser] = useState(() => JSON.parse(localStorage.getItem('user') || 'null'));
+  const [user, setUser] = useState(() =>
+    JSON.parse(localStorage.getItem('user') || 'null')
+  );
+
   const navigate = useNavigate();
 
   function handleLogin(loggedUser) {
@@ -33,22 +35,22 @@ export default function App() {
 
   return (
     <div className="app">
-      <header className="topbar">
-        <Link className="logo" to={user ? '/tasks' : '/login'}>Task Manager App</Link>
-        {user && (
-          <nav className="nav">
-            <Link to="/tasks">Úkoly</Link>
-            <Link to="/profile">Profil</Link>
-            <button type="button" onClick={handleLogout}>Odhlásit</button>
-          </nav>
-        )}
-      </header>
+      <Navbar user={user} onLogout={handleLogout} />
 
       <main className="container">
         <Routes>
-          <Route path="/" element={<Navigate to={user ? '/tasks' : '/login'} replace />} />
+          <Route
+            path="/"
+            element={<Navigate to={user ? '/tasks' : '/login'} replace />}
+          />
+
           <Route path="/login" element={<Login onLogin={handleLogin} />} />
-          <Route path="/register" element={<Register onRegister={handleLogin} />} />
+
+          <Route
+            path="/register"
+            element={<Register onRegister={handleLogin} />}
+          />
+
           <Route
             path="/tasks"
             element={
@@ -57,6 +59,7 @@ export default function App() {
               </ProtectedRoute>
             }
           />
+
           <Route
             path="/profile"
             element={
