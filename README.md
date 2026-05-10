@@ -18,16 +18,20 @@ Jednoduchá webová aplikace vytvořená pro účely bakalářské práce a test
 ## Struktura projektu
 
 ```txt
-frontend/
-  src/
-    pages/
-    App.jsx
-    api.js
-    main.jsx
-    styles.css
-backend/
-  data/db.json
-  server.js
+task-manager-app/
+  frontend/
+    src/
+      components/        # znovupoužitelné React komponenty
+      pages/             # jednotlivé stránky aplikace
+      App.jsx            # hlavní komponenta s routováním
+      api.js             # komunikace s backend API
+      main.jsx           # vstupní bod React aplikace
+      styles.css         # globální styly
+
+  backend/
+    data/
+      db.json            # JSON soubor pro ukládání dat
+    server.js            # Express server a API endpointy
 ```
 
 ## Testovací účet
