@@ -8,6 +8,7 @@ import Profile from './pages/Profile.jsx';
 
 import Navbar from '/components/Navbar.jsx';
 import ProtectedRoute from '/components/ProtectedRoute.jsx';
+import TaskEdit from './pages/TaskEdit.jsx';
 
 export default function App() {
   const [user, setUser] = useState(() =>
@@ -65,6 +66,15 @@ export default function App() {
             element={
               <ProtectedRoute user={user}>
                 <Profile user={user} onProfileUpdate={handleProfileUpdate} />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/tasks/:id/edit"
+            element={
+              <ProtectedRoute user={user}>
+                <TaskEdit />
               </ProtectedRoute>
             }
           />

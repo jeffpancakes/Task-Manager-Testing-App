@@ -15,7 +15,7 @@ export default function TaskForm({
 
       {formError && <div className="alert error">{formError}</div>}
 
-      <label>Název úkolu *</label>
+      <label>Název*</label>
       <input
         value={form.title}
         onChange={(event) => setForm({ ...form, title: event.target.value })}
@@ -63,6 +63,21 @@ export default function TaskForm({
             onChange={(event) => setForm({ ...form, dueDate: event.target.value })}
           />
         </div>
+      </div>
+
+      <div className="checkbox-field">
+        <input
+          id="completed"
+          type="checkbox"
+          checked={form.completed || false}
+          onChange={(event) =>
+            setForm({ ...form, completed: event.target.checked })
+          }
+        />
+
+        <label htmlFor="completed">
+          Označit úkol jako dokončený
+        </label>
       </div>
 
       <div className="button-row">

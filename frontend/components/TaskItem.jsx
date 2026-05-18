@@ -1,6 +1,7 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-export default function TaskItem({ task, onToggleCompleted, onEdit, onDelete }) {
+export default function TaskItem({ task, onToggleCompleted, onDelete }) {
   return (
     <article className={`card task-card ${task.completed ? 'completed' : ''}`}>
       <div className="task-main">
@@ -25,9 +26,9 @@ export default function TaskItem({ task, onToggleCompleted, onEdit, onDelete }) 
       </div>
 
       <div className="button-row">
-        <button type="button" onClick={() => onEdit(task)}>
+        <Link className="button-link" to={`/tasks/${task.id}/edit`}>
           Upravit
-        </button>
+        </Link>
 
         <button className="danger" type="button" onClick={() => onDelete(task.id)}>
           Odstranit

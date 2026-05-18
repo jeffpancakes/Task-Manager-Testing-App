@@ -27,3 +27,6 @@ frontend/dist/
 
 # optional cache
 .cache/
+
+# database
+backend/data/db.json
