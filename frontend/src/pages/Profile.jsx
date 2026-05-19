@@ -67,7 +67,7 @@ export default function Profile({ user, onProfileUpdate }) {
         <div className="card">
           <h2>Údaje uživatele</h2>
           <p><strong>Jméno:</strong> {profile.user.name}</p>
-          <p><strong>Email:</strong> {profile.user.email}</p>
+          <p><strong>E-mail:</strong> {profile.user.email}</p>
           <p><strong>Datum registrace:</strong> {new Date(profile.user.createdAt).toLocaleDateString('cs-CZ')}</p>
           <p><strong>ID uživatele:</strong> {profile.user.id}</p>
         </div>
@@ -75,7 +75,7 @@ export default function Profile({ user, onProfileUpdate }) {
         <div className="card">
           <h2>Statistiky</h2>
           <p><strong>Celkem úkolů:</strong> {profile.stats.totalTasks}</p>
-          <p><strong>Dokončeno:</strong> {profile.stats.completedTasks}</p>
+          <p><strong>Splněno:</strong> {profile.stats.completedTasks}</p>
           <p><strong>Nesplněno:</strong> {profile.stats.openTasks}</p>
         </div>
       </div>

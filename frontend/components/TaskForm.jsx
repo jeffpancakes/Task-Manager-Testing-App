@@ -76,7 +76,7 @@ export default function TaskForm({
         />
 
         <label htmlFor="completed">
-          Označit úkol jako dokončený
+          Označit úkol jako splněný (lze změnit i později)
         </label>
       </div>
 

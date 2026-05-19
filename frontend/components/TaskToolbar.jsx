@@ -12,7 +12,7 @@ export default function TaskToolbar({ search, setSearch, filter, setFilter }) {
       <select value={filter} onChange={(event) => setFilter(event.target.value)}>
         <option value="all">Všechny úkoly</option>
         <option value="open">Pouze nesplněné</option>
-        <option value="completed">Pouze dokončené</option>
+        <option value="completed">Pouze splněné</option>
       </select>
     </div>
   );

@@ -34,13 +34,6 @@ task-manager-app/
     server.js            # Express server a API endpointy
 ```
 
-## Testovací účet
-
-```txt
-Email: test@test.cz
-Heslo: Test1234
-```
-
 ## Implementované funkce
 
 - registrace uživatele
@@ -51,7 +44,7 @@ Heslo: Test1234
 - vytvoření úkolu
 - úprava úkolu
 - odstranění úkolu
-- označení úkolu jako dokončený / nedokončený
+- označení úkolu jako splněný / nesplněný
 - filtrování úkolů podle stavu
 - vyhledávání úkolů podle názvu
 - uživatelský profil
@@ -64,16 +57,16 @@ Heslo: Test1234
 ## Vhodné testovací scénáře
 
 1. Registrace s prázdnými poli.
-2. Registrace s neplatným emailem.
+2. Registrace s neplatným e-mailem.
 3. Registrace s heslem kratším než 8 znaků.
 4. Přihlášení se správnými údaji.
 5. Přihlášení se špatným heslem.
 6. Vytvoření úkolu s validním názvem.
 7. Pokus o vytvoření úkolu s krátkým názvem.
 8. Úprava existujícího úkolu.
-9. Označení úkolu jako dokončeného.
+9. Označení úkolu jako splněné.
 10. Odstranění úkolu.
-11. Filtrování dokončených a nedokončených úkolů.
+11. Filtrování splněných a nesplněných úkolů.
 12. Vyhledávání úkolů podle názvu.
 13. Zobrazení profilu uživatele.
 14. Úprava jména v profilu.

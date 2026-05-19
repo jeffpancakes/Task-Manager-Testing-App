@@ -12,7 +12,7 @@ export default function TaskStats({ tasks }) {
 
       <div className="stat-card">
         <strong>{completedCount}</strong>
-        <span>Dokončeno</span>
+        <span>Splněno</span>
       </div>
 
       <div className="stat-card">
