@@ -39,15 +39,15 @@ export default function Login({ onLogin }) {
   return (
     <section className="card auth-card">
       <h1>Přihlášení</h1>
-      <p className="muted">Testovací účet: test@test.cz / Test1234</p>
+      <p className="muted">Přihlaste se do svého účtu.</p>
       {apiError && <div className="alert error">{apiError}</div>}
 
       <form onSubmit={handleSubmit} noValidate>
-        <label>Email</label>
+        <label>E-mail</label>
         <input
           value={form.email}
           onChange={(event) => setForm({ ...form, email: event.target.value })}
-          placeholder="test@test.cz"
+          placeholder="..."
         />
         {errors.email && <p className="field-error">{errors.email}</p>}
 
@@ -56,7 +56,7 @@ export default function Login({ onLogin }) {
           type="password"
           value={form.password}
           onChange={(event) => setForm({ ...form, password: event.target.value })}
-          placeholder="Test1234"
+          placeholder="..."
         />
         {errors.password && <p className="field-error">{errors.password}</p>}
 
