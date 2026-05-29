@@ -1,0 +1,47 @@
+input,
+select,
+textarea {
+  width: 100%;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  padding: 10px;
+  margin-top: 6px;
+  margin-bottom: 12px;
+  background: white;
+}
+
+textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+
+label {
+  font-weight: 700;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 14px;
+}
+
+.checkbox-field {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 6px 0 18px;
+}
+
+.checkbox-field input {
+  width: auto;
+  margin: 0;
+}
+
+.checkbox-field label {
+  margin: 0;
+  font-weight: 600;
+}
+
+.switch-text {
+  text-align: center;
+}

@@ -1,0 +1,42 @@
+button {
+  border: 1px solid #cbd5e1;
+  background: white;
+  border-radius: 8px;
+  padding: 10px 14px;
+  cursor: pointer;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+button.primary {
+  background: #2563eb;
+  color: white;
+  border-color: #2563eb;
+}
+
+button.danger {
+  background: #dc2626;
+  color: white;
+  border-color: #dc2626;
+}
+
+.button-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+.button-link {
+  display: inline-block;
+  text-decoration: none;
+  color: #1f2937;
+  border: 1px solid #cbd5e1;
+  background: white;
+  border-radius: 8px;
+  padding: 10px 14px;
+  cursor: pointer;
+}
