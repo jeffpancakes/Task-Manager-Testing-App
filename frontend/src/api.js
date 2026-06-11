@@ -1,3 +1,5 @@
+import { toast } from 'react-toastify';
+
 const API_URL = 'http://localhost:3000';
 
 function getUserId() {
@@ -12,18 +14,27 @@ export async function apiRequest(path, options = {}) {
   };
 
   const userId = getUserId();
-  if (userId) headers['x-user-id'] = userId;
+
+  if (userId) {
+    headers['x-user-id'] = userId;
+  }
 
   const response = await fetch(`${API_URL}${path}`, {
     ...options,
     headers,
   });
 
-  if (response.status === 204) return null;
+  if (response.status === 204) {
+    return null;
+  }
 
   const data = await response.json();
+
   if (!response.ok) {
-    throw new Error(data.message || 'Nastala chyba při komunikaci se serverem.');
+    const message = data.message || 'Nastala chyba při komunikaci se serverem.';
+
+    throw new Error(message);
   }
+
   return data;
 }

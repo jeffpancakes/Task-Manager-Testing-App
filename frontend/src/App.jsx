@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import Login from './pages/Login.jsx';
 import Register from './pages/Register.jsx';
@@ -80,6 +82,14 @@ export default function App() {
           />
         </Routes>
       </main>
+        <ToastContainer 
+        position="bottom-right" 
+        autoClose={3000} 
+        newestOnTop
+        closeOnClick
+        pauseOnHover
+        theme="colored"
+        />
     </div>
   );
 }

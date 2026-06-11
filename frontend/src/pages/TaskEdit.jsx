@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { apiRequest } from '../api.js';
+import { toast } from 'react-toastify';
+
 import TaskForm from '/components/TaskForm.jsx';
 import Loader from '/components/Loader.jsx';
 
 const emptyForm = {
   title: '',
   description: '',
-  category: 'škola',
-  priority: 'medium',
+  category: '',
+  priority: '',
   dueDate: '',
-  completed: false
+  completed: false,
 };
 
 export default function TaskEdit() {
@@ -20,20 +22,19 @@ export default function TaskEdit() {
   const [form, setForm] = useState(emptyForm);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
-  const [error, setError] = useState('');
   const [formError, setFormError] = useState('');
 
   useEffect(() => {
     async function loadTask() {
       setLoading(true);
-      setError('');
 
       try {
         const data = await apiRequest('/tasks');
         const foundTask = data.tasks.find((task) => task.id === id);
 
         if (!foundTask) {
-          setError('Úkol nebyl nalezen.');
+          toast.error('Úkol nebyl nalezen.');
+          navigate('/tasks');
           return;
         }
 
@@ -43,17 +44,17 @@ export default function TaskEdit() {
           category: foundTask.category,
           priority: foundTask.priority,
           dueDate: foundTask.dueDate || '',
-          completed: foundTask.completed || false
+          completed: foundTask.completed || false,
         });
       } catch (err) {
-        setError(err.message);
+        toast.error(`Nepodařilo se načíst úkol: ${err.message}`);
       } finally {
         setLoading(false);
       }
     }
 
     loadTask();
-  }, [id]);
+  }, [id, navigate]);
 
   function validateTask() {
     if (!form.title || form.title.trim().length < 3) {
@@ -90,9 +91,10 @@ export default function TaskEdit() {
         body: JSON.stringify(form),
       });
 
+      toast.success('Úkol byl upraven.');
       navigate('/tasks');
     } catch (err) {
-      setFormError(err.message);
+      toast.error(`Nepodařilo se upravit úkol: ${err.message}`);
     } finally {
       setSaving(false);
     }
@@ -113,17 +115,15 @@ export default function TaskEdit() {
         </div>
       </div>
 
-      {!error && (
-        <TaskForm
-          form={form}
-          setForm={setForm}
-          editingId={id}
-          saving={saving}
-          formError={formError}
-          onSubmit={handleSubmit}
-          onCancelEdit={() => navigate('/tasks')}
-        />
-      )}
+      <TaskForm
+        form={form}
+        setForm={setForm}
+        editingId={id}
+        saving={saving}
+        formError={formError}
+        onSubmit={handleSubmit}
+        onCancelEdit={() => navigate('/tasks')}
+      />
     </section>
   );
 }

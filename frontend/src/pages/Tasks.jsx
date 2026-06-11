@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { apiRequest } from '../api.js';
+import { toast } from 'react-toastify';
 
+import { apiRequest } from '../api.js';
 import TaskForm from '/components/TaskForm.jsx';
 import TaskItem from '/components/TaskItem.jsx';
 import TaskStats from '/components/TaskStats.jsx';
@@ -13,7 +14,7 @@ const emptyForm = {
   category: 'škola',
   priority: 'medium',
   dueDate: '',
-  completed: false
+  completed: false,
 };
 
 export default function Tasks() {
@@ -23,18 +24,16 @@ export default function Tasks() {
   const [search, setSearch] = useState('');
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
-  const [error, setError] = useState('');
   const [formError, setFormError] = useState('');
 
   async function loadTasks() {
     setLoading(true);
-    setError('');
 
     try {
       const data = await apiRequest('/tasks');
       setTasks(data.tasks);
     } catch (err) {
-      setError(err.message);
+      toast.error(`Nepodařilo se načíst úkoly: ${err.message}`);
     } finally {
       setLoading(false);
     }
@@ -94,9 +93,10 @@ export default function Tasks() {
       });
 
       setForm(emptyForm);
+      toast.success('Úkol byl vytvořen.');
       await loadTasks();
     } catch (err) {
-      setFormError(err.message);
+      toast.error(`Nepodařilo se vytvořit úkol: ${err.message}`);
     } finally {
       setSaving(false);
     }
@@ -109,9 +109,15 @@ export default function Tasks() {
         body: JSON.stringify({ completed: !task.completed }),
       });
 
+      toast.success(
+        task.completed
+          ? 'Úkol byl označen jako nesplněný.'
+          : 'Úkol byl označen jako dokončený.'
+      );
+
       await loadTasks();
     } catch (err) {
-      setError(err.message);
+      toast.error(`Nepodařilo se změnit stav úkolu: ${err.message}`);
     }
   }
 
@@ -125,9 +131,10 @@ export default function Tasks() {
         method: 'DELETE',
       });
 
+      toast.success('Úkol byl odstraněn.');
       await loadTasks();
     } catch (err) {
-      setError(err.message);
+      toast.error(`Nepodařilo se odstranit úkol: ${err.message}`);
     }
   }
 
