@@ -6,7 +6,6 @@ import TaskItem from '/components/TaskItem.jsx';
 import TaskStats from '/components/TaskStats.jsx';
 import TaskToolbar from '/components/TaskToolbar.jsx';
 import Loader from '/components/Loader.jsx';
-import ErrorMessage from '/components/ErrorMessage.jsx';
 
 const emptyForm = {
   title: '',
@@ -163,8 +162,6 @@ export default function Tasks() {
       />
 
       {loading && <Loader text="Načítám úkoly..." />}
-
-      <ErrorMessage message={error} />
 
       {!loading && filteredTasks.length === 0 && (
         <p className="empty-state">Žádné úkoly nebyly nalezeny.</p>

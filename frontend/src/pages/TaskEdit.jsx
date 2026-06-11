@@ -3,7 +3,6 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { apiRequest } from '../api.js';
 import TaskForm from '/components/TaskForm.jsx';
 import Loader from '/components/Loader.jsx';
-import ErrorMessage from '/components/ErrorMessage.jsx';
 
 const emptyForm = {
   title: '',
@@ -113,8 +112,6 @@ export default function TaskEdit() {
           </p>
         </div>
       </div>
-
-      <ErrorMessage message={error} />
 
       {!error && (
         <TaskForm
