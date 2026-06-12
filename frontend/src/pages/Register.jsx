@@ -54,11 +54,11 @@ export default function Register({ onRegister }) {
         {errors.email && <p className="field-error">{errors.email}</p>}
 
         <label>Heslo</label>
-        <input type="password" value={form.password} onChange={(event) => setForm({ ...form, password: event.target.value })} />
+        <input type="password" value={form.password} onChange={(event) => setForm({ ...form, password: event.target.value })} placeholder="Vaše heslo" />
         {errors.password && <p className="field-error">{errors.password}</p>}
 
         <label>Potvrzení hesla</label>
-        <input type="password" value={form.passwordConfirm} onChange={(event) => setForm({ ...form, passwordConfirm: event.target.value })} />
+        <input type="password" value={form.passwordConfirm} onChange={(event) => setForm({ ...form, passwordConfirm: event.target.value })} placeholder="Potvrzení hesla" />
         {errors.passwordConfirm && <p className="field-error">{errors.passwordConfirm}</p>}
 
         <button className="primary" disabled={loading} type="submit">

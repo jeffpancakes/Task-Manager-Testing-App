@@ -5,8 +5,28 @@
   margin-bottom: 18px;
 }
 
-.stat-card {
+.stat-card-total {
   background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.stat-card-complete {
+  background: #90EE90;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.stat-card-incomplete {
+  background: #FF7F7F;
   border: 1px solid #e5e7eb;
   border-radius: 12px;
   padding: 18px;
@@ -21,7 +41,7 @@
 
 .toolbar {
   display: grid;
-  grid-template-columns: 1fr 220px;
+  grid-template-columns: 1fr 220px 220px;
   gap: 12px;
   margin: 20px 0;
 }

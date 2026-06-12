@@ -47,7 +47,7 @@ export default function Login({ onLogin }) {
         <input
           value={form.email}
           onChange={(event) => setForm({ ...form, email: event.target.value })}
-          placeholder="..."
+          placeholder="Váš e-mail"
         />
         {errors.email && <p className="field-error">{errors.email}</p>}
 
@@ -56,7 +56,7 @@ export default function Login({ onLogin }) {
           type="password"
           value={form.password}
           onChange={(event) => setForm({ ...form, password: event.target.value })}
-          placeholder="..."
+          placeholder="Vaše heslo"
         />
         {errors.password && <p className="field-error">{errors.password}</p>}
 
