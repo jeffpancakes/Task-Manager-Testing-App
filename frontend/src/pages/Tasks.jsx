@@ -11,11 +11,18 @@ import Loader from '/components/Loader.jsx';
 const emptyForm = {
   title: '',
   description: '',
-  category: 'škola',
-  priority: 'medium',
+  category: '',
+  priority: '',
   dueDate: '',
   completed: false,
 };
+
+const priorityOrder = {
+  high: 3,
+  medium: 2,
+  low: 1
+};
+
 
 export default function Tasks() {
   const [tasks, setTasks] = useState([]);
@@ -25,6 +32,7 @@ export default function Tasks() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [formError, setFormError] = useState('');
+  const [sortBy, setSortBy] = useState('createdAt-desc');
 
   async function loadTasks() {
     setLoading(true);
@@ -43,19 +51,55 @@ export default function Tasks() {
     loadTasks();
   }, []);
 
-  const filteredTasks = useMemo(() => {
-    return tasks.filter((task) => {
-      const matchesStatus =
-        filter === 'all' ||
-        (filter === 'completed' ? task.completed : !task.completed);
+const visibleTasks = useMemo(() => {
+  const filtered = tasks.filter((task) => {
+    const matchesStatus =
+      filter === 'all' ||
+      (filter === 'completed' ? task.completed : !task.completed);
 
-      const matchesSearch = task.title
-        .toLowerCase()
-        .includes(search.toLowerCase());
+    const matchesSearch = task.title
+      .toLowerCase()
+      .includes(search.toLowerCase());
 
-      return matchesStatus && matchesSearch;
-    });
-  }, [tasks, filter, search]);
+    return matchesStatus && matchesSearch;
+  });
+
+  return [...filtered].sort((a, b) => {
+    if (sortBy === 'createdAt-desc') {
+      return new Date(b.createdAt) - new Date(a.createdAt);
+    }
+
+    if (sortBy === 'createdAt-asc') {
+      return new Date(a.createdAt) - new Date(b.createdAt);
+    }
+
+    if (sortBy === 'dueDate-asc') {
+      if (!a.dueDate) return 1;
+      if (!b.dueDate) return -1;
+      return new Date(a.dueDate) - new Date(b.dueDate);
+    }
+
+    if (sortBy === 'dueDate-desc') {
+      if (!a.dueDate) return 1;
+      if (!b.dueDate) return -1;
+      return new Date(b.dueDate) - new Date(a.dueDate);
+    }
+
+    if (sortBy === 'priority-desc') {
+      return priorityOrder[b.priority] - priorityOrder[a.priority];
+    }
+
+    if (sortBy === 'priority-asc') {
+      return priorityOrder[a.priority] - priorityOrder[b.priority];
+    }
+
+    if (sortBy === 'title-asc') {
+      return a.title.localeCompare(b.title, 'cs');
+    }
+
+    return 0;
+  });
+}, [tasks, filter, search, sortBy]);
 
   function validateTask() {
     if (!form.title || form.title.trim().length < 3) {
@@ -166,16 +210,18 @@ export default function Tasks() {
         setSearch={setSearch}
         filter={filter}
         setFilter={setFilter}
+        sortBy={sortBy}
+        setSortBy={setSortBy}
       />
 
       {loading && <Loader text="Načítám úkoly..." />}
 
-      {!loading && filteredTasks.length === 0 && (
+      {!loading && visibleTasks.length === 0 && (
         <p className="empty-state">Žádné úkoly nebyly nalezeny.</p>
       )}
 
       <div className="task-list">
-        {filteredTasks.map((task) => (
+        {visibleTasks.map((task) => (
           <TaskItem
             key={task.id}
             task={task}
