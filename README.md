@@ -6,6 +6,64 @@ Aplikace slouží jako testovací prostředí obsahující autentizaci uživatel
 
 ---
 
+## Instalace závislostí
+
+Před prvním spuštěním aplikace je nutné nainstalovat všechny potřebné závislosti.
+
+### Backend
+
+```bash
+cd backend
+npm install
+```
+
+### Frontend
+
+```bash
+cd frontend
+npm install
+```
+
+---
+
+## Spuštění aplikace
+
+Pro správné fungování aplikace musí být současně spuštěn backend i frontend.
+
+### Backend
+
+```bash
+cd backend
+node server.js
+```
+
+Backend poběží na:
+
+```txt
+http://localhost:3000
+```
+
+### Frontend
+
+V druhém terminálu:
+
+```bash
+cd frontend
+npm run dev
+```
+
+Frontend poběží na:
+
+```txt
+http://localhost:5173
+```
+
+Po spuštění obou částí otevřete:
+
+```txt
+http://localhost:5173
+```
+
 ## Použité technologie
 
 ### Frontend
@@ -21,7 +79,7 @@ Aplikace slouží jako testovací prostředí obsahující autentizaci uživatel
 * Node.js
 * Express
 * bcryptjs
-* JSON soubor jako datové úložiště (dočasně)
+* JSON soubor jako jednoduché datové uložiště
 
 ---
 
