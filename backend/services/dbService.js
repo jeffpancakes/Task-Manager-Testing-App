@@ -6,7 +6,12 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const DATA_DIR = path.join(__dirname, '..', 'data');
-const DB_PATH = path.join(DATA_DIR, 'db.json');
+const DB_FILE =
+  process.env.NODE_ENV === 'test'
+    ? 'db.test.json'
+    : 'db.json';
+
+const DB_PATH = path.join(DATA_DIR, DB_FILE);
 
 export async function ensureDbFile() {
   try {
