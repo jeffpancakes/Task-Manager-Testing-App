@@ -24,6 +24,12 @@ router.post('/register', async (req, res, next) => {
       });
     }
 
+    if (name.trim().length > 30) {
+      return res.status(400).json({
+        message: 'Jméno nesmí být delší než 30 znaků.', 
+      });
+    }
+
     if (!isValidEmail(email)) {
       return res.status(400).json({
         message: 'Zadejte platný email.',

@@ -39,6 +39,11 @@ export default function Profile({ user, onProfileUpdate }) {
       return;
     }
 
+    if (name.trim().length > 30) {
+      setFormError('Jméno nesmí být delší než 30 znaků.');
+      return;
+    }
+
     setSaving(true);
 
     try {

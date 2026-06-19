@@ -23,5 +23,9 @@ export function validateProfileName(name) {
     return 'Jméno musí mít alespoň 2 znaky.';
   }
 
+  if (name.length > 30) {
+    return 'Jméno nesmí být delší než 30 znaků.';
+  }
+
   return '';
 }
