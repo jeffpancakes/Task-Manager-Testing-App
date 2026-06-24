@@ -1,38 +1,25 @@
 import React, { useEffect, useMemo, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 import { apiRequest } from '../api.js';
-import TaskForm from '/components/TaskForm.jsx';
 import TaskItem from '/components/TaskItem.jsx';
 import TaskStats from '/components/TaskStats.jsx';
 import TaskToolbar from '/components/TaskToolbar.jsx';
 import Loader from '/components/Loader.jsx';
 
-const emptyForm = {
-  title: '',
-  description: '',
-  category: '',
-  priority: '',
-  dueDate: '',
-  completed: false,
-};
-
 const priorityOrder = {
   high: 3,
   medium: 2,
-  low: 1
+  low: 1,
 };
-
 
 export default function Tasks() {
   const [tasks, setTasks] = useState([]);
-  const [form, setForm] = useState(emptyForm);
   const [filter, setFilter] = useState('all');
   const [search, setSearch] = useState('');
-  const [loading, setLoading] = useState(true);
-  const [saving, setSaving] = useState(false);
-  const [formError, setFormError] = useState('');
   const [sortBy, setSortBy] = useState('createdAt-desc');
+  const [loading, setLoading] = useState(true);
 
   async function loadTasks() {
     setLoading(true);
@@ -51,100 +38,55 @@ export default function Tasks() {
     loadTasks();
   }, []);
 
-const visibleTasks = useMemo(() => {
-  const filtered = tasks.filter((task) => {
-    const matchesStatus =
-      filter === 'all' ||
-      (filter === 'completed' ? task.completed : !task.completed);
+  const visibleTasks = useMemo(() => {
+    const filtered = tasks.filter((task) => {
+      const matchesStatus =
+        filter === 'all' ||
+        (filter === 'completed' ? task.completed : !task.completed);
 
-    const matchesSearch = task.title
-      .toLowerCase()
-      .includes(search.toLowerCase());
+      const matchesSearch = task.title
+        .toLowerCase()
+        .includes(search.toLowerCase());
 
-    return matchesStatus && matchesSearch;
-  });
+      return matchesStatus && matchesSearch;
+    });
 
-  return [...filtered].sort((a, b) => {
-    if (sortBy === 'createdAt-desc') {
-      return new Date(b.createdAt) - new Date(a.createdAt);
-    }
+    return [...filtered].sort((a, b) => {
+      if (sortBy === 'createdAt-desc') {
+        return new Date(b.createdAt) - new Date(a.createdAt);
+      }
 
-    if (sortBy === 'createdAt-asc') {
-      return new Date(a.createdAt) - new Date(b.createdAt);
-    }
+      if (sortBy === 'createdAt-asc') {
+        return new Date(a.createdAt) - new Date(b.createdAt);
+      }
 
-    if (sortBy === 'dueDate-asc') {
-      if (!a.dueDate) return 1;
-      if (!b.dueDate) return -1;
-      return new Date(a.dueDate) - new Date(b.dueDate);
-    }
+      if (sortBy === 'dueDate-asc') {
+        if (!a.dueDate) return 1;
+        if (!b.dueDate) return -1;
+        return new Date(a.dueDate) - new Date(b.dueDate);
+      }
 
-    if (sortBy === 'dueDate-desc') {
-      if (!a.dueDate) return 1;
-      if (!b.dueDate) return -1;
-      return new Date(b.dueDate) - new Date(a.dueDate);
-    }
+      if (sortBy === 'dueDate-desc') {
+        if (!a.dueDate) return 1;
+        if (!b.dueDate) return -1;
+        return new Date(b.dueDate) - new Date(a.dueDate);
+      }
 
-    if (sortBy === 'priority-desc') {
-      return priorityOrder[b.priority] - priorityOrder[a.priority];
-    }
+      if (sortBy === 'priority-desc') {
+        return priorityOrder[b.priority] - priorityOrder[a.priority];
+      }
 
-    if (sortBy === 'priority-asc') {
-      return priorityOrder[a.priority] - priorityOrder[b.priority];
-    }
+      if (sortBy === 'priority-asc') {
+        return priorityOrder[a.priority] - priorityOrder[b.priority];
+      }
 
-    if (sortBy === 'title-asc') {
-      return a.title.localeCompare(b.title, 'cs');
-    }
+      if (sortBy === 'title-asc') {
+        return a.title.localeCompare(b.title, 'cs');
+      }
 
-    return 0;
-  });
-}, [tasks, filter, search, sortBy]);
-
-  function validateTask() {
-    if (!form.title || form.title.trim().length < 3) {
-      return 'Název úkolu musí mít alespoň 3 znaky.';
-    }
-
-    if (form.title.length > 100) {
-      return 'Název úkolu může mít maximálně 100 znaků.';
-    }
-
-    if (form.dueDate && form.dueDate < new Date().toISOString().slice(0, 10)) {
-      return 'Termín nesmí být v minulosti.';
-    }
-
-    return '';
-  }
-
-  async function handleSubmit(event) {
-    event.preventDefault();
-    setFormError('');
-
-    const validationMessage = validateTask();
-
-    if (validationMessage) {
-      setFormError(validationMessage);
-      return;
-    }
-
-    setSaving(true);
-
-    try {
-      await apiRequest('/tasks', {
-        method: 'POST',
-        body: JSON.stringify(form),
-      });
-
-      setForm(emptyForm);
-      toast.success('Úkol byl vytvořen.');
-      await loadTasks();
-    } catch (err) {
-      toast.error(`Nepodařilo se vytvořit úkol: ${err.message}`);
-    } finally {
-      setSaving(false);
-    }
-  }
+      return 0;
+    });
+  }, [tasks, filter, search, sortBy]);
 
   async function toggleCompleted(task) {
     try {
@@ -188,22 +130,16 @@ const visibleTasks = useMemo(() => {
         <div>
           <h1>Seznam úkolů</h1>
           <p className="muted">
-            CRUD operace, validace, loading stavy a filtrování pro testování.
+            CRUD operace, validace, loading stavy, filtrování a řazení pro testování.
           </p>
         </div>
+
+        <Link className="button-link primary-link" to="/tasks/create">
+          Vytvořit úkol
+        </Link>
       </div>
 
       <TaskStats tasks={tasks} />
-
-      <TaskForm
-        form={form}
-        setForm={setForm}
-        editingId={null}
-        saving={saving}
-        formError={formError}
-        onSubmit={handleSubmit}
-        onCancelEdit={() => {}}
-      />
 
       <TaskToolbar
         search={search}

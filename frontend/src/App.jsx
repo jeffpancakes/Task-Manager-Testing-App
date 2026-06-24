@@ -10,6 +10,7 @@ import Profile from './pages/Profile.jsx';
 
 import Navbar from '/components/Navbar.jsx';
 import ProtectedRoute from '/components/ProtectedRoute.jsx';
+import TaskCreate from './pages/TaskCreate.jsx';
 import TaskEdit from './pages/TaskEdit.jsx';
 
 export default function App() {
@@ -68,6 +69,15 @@ export default function App() {
             element={
               <ProtectedRoute user={user}>
                 <Profile user={user} onProfileUpdate={handleProfileUpdate} />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/tasks/create"
+            element={
+              <ProtectedRoute user={user}>
+                <TaskCreate />
               </ProtectedRoute>
             }
           />
