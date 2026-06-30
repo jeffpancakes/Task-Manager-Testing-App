@@ -4,6 +4,7 @@ import { toast } from 'react-toastify';
 
 import { apiRequest } from '../api.js';
 import TaskForm from '/components/TaskForm.jsx';
+import { validateTaskInput } from '/utils/validation.js';
 
 const emptyForm = {
   title: '',
@@ -21,31 +22,11 @@ export default function TaskCreate() {
   const [saving, setSaving] = useState(false);
   const [formError, setFormError] = useState('');
 
-  function validateTask() {
-    if (!form.title || form.title.trim().length < 3) {
-      return 'Název úkolu musí mít alespoň 3 znaky.';
-    }
-
-    if (form.title.length > 100) {
-      return 'Název úkolu může mít maximálně 100 znaků.';
-    }
-
-    if (form.dueDate && form.dueDate < new Date().toISOString().slice(0, 10)) {
-      return 'Termín nesmí být v minulosti.';
-    }
-
-    if (form.description && form.description.length > 500) {
-      return 'Popis úkolu může mít maximálně 500 znaků.';
-    }
-
-    return '';
-  }
-
   async function handleSubmit(event) {
     event.preventDefault();
     setFormError('');
 
-    const validationMessage = validateTask();
+    const validationMessage = validateTaskInput(form);
 
     if (validationMessage) {
       setFormError(validationMessage);
