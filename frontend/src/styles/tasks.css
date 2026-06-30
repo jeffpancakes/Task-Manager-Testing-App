@@ -15,6 +15,15 @@
   display: flex;
   flex-direction: column;
   gap: 6px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.stat-card:hover,
+.stat-card-total:hover,
+.stat-card-complete:hover,
+.stat-card-incomplete:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.1);
 }
 
 .stat-card,
@@ -37,6 +46,16 @@
 .stat-card-complete strong,
 .stat-card-incomplete strong {
   font-size: 32px;
+  line-height: 1;
+}
+
+.stat-card label,
+.stat-card-total label,
+.stat-card-complete label,
+.stat-card-incomplete label {
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0;
 }
 
 .toolbar {
@@ -59,6 +78,7 @@
   align-items: flex-start;
   border-left: 6px solid transparent;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  padding: 16px;
 }
 
 .task-card .button-row {
@@ -68,6 +88,7 @@
 
 .task-card:hover {
   transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.1);
 }
 
 .task-card.completed {
@@ -92,6 +113,8 @@
 .task-main input[type='checkbox'] {
   width: auto;
   margin-top: 5px;
+  cursor: pointer;
+  flex-shrink: 0;
 }
 
 .task-content {
@@ -99,11 +122,18 @@
   max-width: 760px;
 }
 
+.task-content h3 {
+  margin: 0 0 8px 0;
+  word-break: break-word;
+}
 
 .task-content p {
   max-width: 760px;
   line-height: 1.5;
   overflow-wrap: break-word;
+  word-break: break-word;
+  margin: 0 0 8px 0;
+  font-size: 14px;
 }
 
 .task-header {
@@ -116,6 +146,7 @@
 
 .task-header h3 {
   margin: 0;
+  word-break: break-word;
 }
 
 .meta {
@@ -135,23 +166,10 @@
   color: #475569;
   font-size: 12px;
   font-weight: 600;
+  white-space: nowrap;
 }
 
 .overdue-text {
   background: #000000;
   color: #ffffff;
-}
-
-@media (max-width: 700px) {
-  .toolbar {
-    grid-template-columns: 1fr;
-  }
-
-  .task-card {
-    grid-template-columns: 1fr;
-  }
-
-  .task-card .button-row {
-    justify-content: flex-start;
-  }
 }

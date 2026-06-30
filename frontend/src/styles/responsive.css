@@ -1,12 +1,342 @@
-@media (max-width: 700px) {
-  .topbar,
-  .task-card,
-  .page-heading {
+@media (max-width: 479px) {
+  .container {
+    padding: 16px 12px;
+    max-width: 100%;
+  }
+
+  .card {
+    padding: 16px 12px;
+    margin-bottom: 12px;
+    border-radius: 8px;
+  }
+
+  .auth-card {
+    margin: 20px auto;
+    padding: 16px;
+  }
+
+  .topbar {
+    padding: 12px 12px;
     flex-direction: column;
-    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .logo {
+    font-size: 16px;
+  }
+
+  .nav {
+    width: 100%;
+    gap: 8px;
+  }
+
+  .nav button {
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+
+  h1 {
+    font-size: 20px;
+    margin: 0 0 12px 0;
+  }
+
+  h2 {
+    font-size: 18px;
+    margin: 0 0 10px 0;
+  }
+
+  h3 {
+    font-size: 16px;
+  }
+
+  p {
+    font-size: 14px;
+  }
+
+  input,
+  select,
+  textarea {
+    font-size: 16px;
+    padding: 10px 8px;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 10px;
   }
 
   .toolbar {
     grid-template-columns: 1fr;
+    gap: 10px;
+    margin: 15px 0;
+  }
+
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+
+  .stat-card strong,
+  .stat-card-total strong,
+  .stat-card-complete strong,
+  .stat-card-incomplete strong {
+    font-size: 24px;
+  }
+
+  .task-card {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    padding: 12px;
+  }
+
+  .task-main {
+    grid-template-columns: auto 1fr;
+    gap: 10px;
+  }
+
+  .task-content {
+    max-width: 100%;
+  }
+
+  .task-content p {
+    max-width: 100%;
+    font-size: 14px;
+  }
+
+  .task-card .button-row {
+    justify-content: flex-start;
+    gap: 8px;
+  }
+
+  button {
+    padding: 8px 10px;
+    font-size: 13px;
+  }
+
+  .button-link {
+    padding: 8px 10px;
+    font-size: 13px;
+  }
+
+  .page-heading {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .meta {
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .due-date {
+    padding: 4px 8px;
+    font-size: 11px;
+  }
+
+  .profile-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .empty-state {
+    padding: 20px;
+  }
+}
+
+@media (min-width: 480px) and (max-width: 767px) {
+  .container {
+    padding: 24px 16px;
+    max-width: 100%;
+  }
+
+  .card {
+    padding: 18px 14px;
+    margin-bottom: 14px;
+  }
+
+  .auth-card {
+    margin: 30px auto;
+    max-width: 100%;
+    padding: 18px;
+  }
+
+  .topbar {
+    padding: 14px 16px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .logo {
+    font-size: 18px;
+  }
+
+  .nav {
+    gap: 10px;
+  }
+
+  .nav button {
+    padding: 8px 12px;
+    font-size: 14px;
+  }
+
+  h1 {
+    font-size: 24px;
+    margin: 0 0 16px 0;
+  }
+
+  h2 {
+    font-size: 20px;
+    margin: 0 0 12px 0;
+  }
+
+  .form-row {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .toolbar {
+    grid-template-columns: 1fr 150px 150px;
+    gap: 10px;
+  }
+
+  .dashboard-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+
+  .task-card {
+    grid-template-columns: 1fr;
+    gap: 14px;
+    padding: 14px;
+  }
+
+  .task-card .button-row {
+    justify-content: flex-start;
+  }
+
+  .page-heading {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .profile-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .container {
+    max-width: 750px;
+    padding: 28px 20px;
+  }
+
+  .card {
+    padding: 20px 16px;
+  }
+
+  .auth-card {
+    margin: 40px auto;
+    max-width: 420px;
+  }
+
+  .topbar {
+    padding: 16px 20px;
+  }
+
+  .logo {
+    font-size: 22px;
+  }
+
+  .form-row {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 14px;
+  }
+
+  .toolbar {
+    grid-template-columns: 1fr 180px 180px;
+    gap: 12px;
+  }
+
+  .dashboard-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .task-card {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 20px;
+  }
+
+  .task-card .button-row {
+    justify-content: flex-end;
+  }
+
+  .profile-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    max-width: 1000px;
+    padding: 32px 20px;
+  }
+
+  .card {
+    padding: 20px;
+  }
+
+  .auth-card {
+    max-width: 460px;
+  }
+
+  .topbar {
+    padding: 16px 24px;
+  }
+
+  .logo {
+    font-size: 20px;
+  }
+
+  .form-row {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 14px;
+  }
+
+  .toolbar {
+    grid-template-columns: 1fr 220px 220px;
+    gap: 12px;
+  }
+
+  .dashboard-grid {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+  }
+
+  .task-card {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 24px;
+  }
+
+  .task-card .button-row {
+    justify-content: flex-end;
+  }
+
+  .profile-grid {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  }
+}
+
+@media (min-width: 1440px) {
+  .container {
+    max-width: 1200px;
+    padding: 32px 24px;
+  }
+
+  .toolbar {
+    grid-template-columns: 1fr 250px 250px;
+    gap: 16px;
   }
 }
