@@ -40,3 +40,9 @@ button.danger {
   padding: 10px 14px;
   cursor: pointer;
 }
+
+.button-link.primary-link {
+  background: #2563eb;
+  color: white;
+  border-color: #2563eb;
+}

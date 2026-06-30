@@ -82,14 +82,16 @@ export default function TaskForm({
 
       <div className="button-row">
         <button className="primary" type="submit" disabled={saving}>
-          {saving ? 'Ukládám...' : editingId ? 'Uložit změny' : 'Přidat úkol'}
+          {saving
+          ? 'Ukládám...'
+          : editingId
+          ? 'Uložit změny'
+          : 'Vytvořit úkol'}
         </button>
 
-        {editingId && (
-          <button type="button" onClick={onCancelEdit}>
-            Zrušit úpravu
-          </button>
-        )}
+        <button type="button" onClick={onCancelEdit}>
+          {editingId ? 'Zrušit' : 'Zrušit'}
+       </button>
       </div>
     </form>
   );

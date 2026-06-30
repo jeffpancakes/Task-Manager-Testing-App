@@ -1,9 +1,36 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-export default function TaskItem({ task, onToggleCompleted, onDelete }) {
+import TaskStatusBadge from './TaskStatusBadge.jsx';
+import TaskPriorityBadge from './TaskPriorityBadge.jsx';
+import TaskCategoryBadge from './TaskCategoryBadge.jsx';
+
+function isOverdue(task) {
+  const today = new Date().toISOString().slice(0, 10);
+
   return (
-    <article className={`card task-card ${task.completed ? 'completed' : ''}`}>
+    task.dueDate &&
+    task.dueDate < today &&
+    !task.completed
+  );
+}
+
+export default function TaskItem({
+  task,
+  onToggleCompleted,
+  onDelete,
+}) {
+  const overdue = isOverdue(task);
+
+  return (
+    <article
+      className={`
+        card
+        task-card
+        ${task.completed ? 'completed' : 'pending'}
+        ${overdue ? 'overdue' : ''}
+      `}
+    >
       <div className="task-main">
         <input
           type="checkbox"
@@ -12,25 +39,56 @@ export default function TaskItem({ task, onToggleCompleted, onDelete }) {
           aria-label={`Označit úkol ${task.title}`}
         />
 
-        <div>
-          <h3>{task.title}</h3>
+        <div className="task-content">
+          <div className="task-header">
+            <h3>{task.title}</h3>
 
-          {task.description && <p>{task.description}</p>}
+            <TaskStatusBadge
+              completed={task.completed}
+            />
+          </div>
+
+          {task.description && (
+            <p>{task.description}</p>
+          )}
 
           <div className="meta">
-            <span>Kategorie: {task.category}</span>
-            <span>Priorita: {task.priority}</span>
-            {task.dueDate && <span>Termín: {task.dueDate}</span>}
+            <TaskCategoryBadge
+              category={task.category}
+            />
+
+            <TaskPriorityBadge
+              priority={task.priority}
+            />
+
+            {task.dueDate && (
+              <span
+                className={
+                  overdue
+                    ? 'due-date overdue-text'
+                    : 'due-date'
+                }
+              >
+                Termín: {task.dueDate}
+              </span>
+            )}
           </div>
         </div>
       </div>
 
       <div className="button-row">
-        <Link className="button-link" to={`/tasks/${task.id}/edit`}>
+        <Link
+          className="button-link"
+          to={`/tasks/${task.id}/edit`}
+        >
           Upravit
         </Link>
 
-        <button className="danger" type="button" onClick={() => onDelete(task.id)}>
+        <button
+          className="danger"
+          type="button"
+          onClick={() => onDelete(task.id)}
+        >
           Odstranit
         </button>
       </div>
