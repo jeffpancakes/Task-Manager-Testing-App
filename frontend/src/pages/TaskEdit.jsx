@@ -10,8 +10,8 @@ import { validateTaskInput } from '/utils/validation.js';
 const emptyForm = {
   title: '',
   description: '',
-  category: '',
-  priority: '',
+  category: 'škola',
+  priority: 'low',
   dueDate: '',
   completed: false,
 };

@@ -10,8 +10,8 @@ export default function Login({ onLogin }) {
 
   function validate() {
     const nextErrors = {};
-    if (!form.email) nextErrors.email = 'Email je povinný.';
-    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) nextErrors.email = 'Email není ve správném formátu.';
+    if (!form.email) nextErrors.email = 'E-mail je povinný.';
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) nextErrors.email = 'E-mail není ve správném formátu.';
     if (!form.password) nextErrors.password = 'Heslo je povinné.';
     setErrors(nextErrors);
     return Object.keys(nextErrors).length === 0;

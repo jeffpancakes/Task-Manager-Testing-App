@@ -12,8 +12,8 @@ export default function Register({ onRegister }) {
     const nextErrors = {};
     if (!form.name || form.name.trim().length < 2) nextErrors.name = 'Jméno musí mít alespoň 2 znaky.';
     if (form.name.trim().length > 30) nextErrors.name = 'Jméno nesmí být delší než 30 znaků.';
-    if (!form.email) nextErrors.email = 'Email je povinný.';
-    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) nextErrors.email = 'Email není ve správném formátu.';
+    if (!form.email) nextErrors.email = 'E-mail je povinný.';
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) nextErrors.email = 'E-mail není ve správném formátu.';
     if (!form.password || form.password.length < 8) nextErrors.password = 'Heslo musí mít alespoň 8 znaků.';
     if (form.passwordConfirm !== form.password) nextErrors.passwordConfirm = 'Hesla se neshodují.';
     setErrors(nextErrors);
@@ -50,7 +50,7 @@ export default function Register({ onRegister }) {
         <input value={form.name} onChange={(event) => setForm({ ...form, name: event.target.value })} placeholder="Jan Novák" />
         {errors.name && <p className="field-error">{errors.name}</p>}
 
-        <label>Email</label>
+        <label>E-mail</label>
         <input value={form.email} onChange={(event) => setForm({ ...form, email: event.target.value })} placeholder="jan@example.cz" />
         {errors.email && <p className="field-error">{errors.email}</p>}
 
